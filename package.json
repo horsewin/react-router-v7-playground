@@ -7,7 +7,8 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc --build --noEmit"
+    "typecheck": "react-router typegen && tsc --build --noEmit",
+    "check-node": "node -v"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",
