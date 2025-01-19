@@ -9,9 +9,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
+  console.log(process.env.BACKEND_URL)
   try {
     const response = await fetch(
-      "https://xxx.execute-api.ap-southeast-2.amazonaws.com/prod/hellworld"
+      `${process.env.BACKEND_URL}/v1/helloworld`
     );
     const data = await response.json();
     if (response.ok) {
