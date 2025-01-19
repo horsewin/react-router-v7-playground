@@ -16,6 +16,7 @@ export async function loader() {
     );
     const data = await response.json();
     if (response.ok) {
+      console.log(JSON.stringify(data));
       return { message: data.message };
     } else {
       return {
