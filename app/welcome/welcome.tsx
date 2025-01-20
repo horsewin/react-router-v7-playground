@@ -1,4 +1,4 @@
-import umaAraiOld from "./uma-arai-old.png";
+import umaArai from "./uma-arai.png";
 import {Button} from "~/components/ui/button";
 import {
   AlertDialog,
@@ -37,7 +37,7 @@ export function Welcome({message}: { message?: string }) {
         <header className="flex flex-col items-center gap-9">
           <div className="w-[500px] max-w-[100vw] p-4">
             <img
-              src={umaAraiOld}
+              src={umaArai}
               alt="v2"
               className="block w-full"
             />

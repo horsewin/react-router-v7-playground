@@ -9,7 +9,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  console.log(process.env.BACKEND_URL)
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/v1/helloworld`
