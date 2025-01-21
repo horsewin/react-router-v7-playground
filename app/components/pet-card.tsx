@@ -10,11 +10,10 @@ import type { Pet } from "~/types/pet"
 
 interface PetCardProps {
     pet: Pet
-    onToggleCompare: (id: string) => void
     onToggleLike: (id: string) => void
 }
 
-export function PetCard({ pet, onToggleCompare, onToggleLike }: PetCardProps) {
+export function PetCard({ pet, onToggleLike }: PetCardProps) {
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
     const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
     const formattedPrice = new Intl.NumberFormat("ja-JP").format(pet.price)
@@ -70,20 +69,6 @@ export function PetCard({ pet, onToggleCompare, onToggleLike }: PetCardProps) {
                                 </Badge>
                             ))}
                         </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                        <Checkbox
-                            id={`compare-${pet.id}`}
-                            checked={pet.isComparable}
-                            onCheckedChange={() => onToggleCompare(pet.id)}
-                        />
-                        <label
-                            htmlFor={`compare-${pet.id}`}
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                            比較する
-                        </label>
                     </div>
 
                     <div className="flex justify-between mt-2">
