@@ -1,6 +1,7 @@
 export interface Pet {
     id: string
     name: string
+    color: string
     breed: string
     gender: "Female" | "Male",
     price: number
@@ -13,6 +14,5 @@ export interface Pet {
     birthDate: string
     referenceNumber: string
     tags: string[]
-    isComparable?: boolean
 }
 

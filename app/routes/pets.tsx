@@ -1,7 +1,5 @@
 import {useState} from "react"
-import {Button} from "~/components/ui/button"
 import {PetCard} from "~/components/pet-card"
-import {ListFilter} from "lucide-react"
 import type {Pet} from "~/types/pet"
 
 // サンプルデータ
@@ -9,8 +7,8 @@ export const SAMPLE_PETS: Pet[] = [
     {
         id: "1",
         name: "cute cat",
-        // detailsの "color= brown" を踏まえて "brown cat" としてみる例
         breed: "brown cat",
+        color: "brown",
         gender: "Male",
         price: 360000,
         imageUrl:
@@ -24,13 +22,14 @@ export const SAMPLE_PETS: Pet[] = [
         referenceNumber: "0000001",
         // features + flag("new") を合わせて tags に入れる例
         tags: ["cute", "famous", "cool", "new"],
-        isComparable: false,
+
     },
     {
         id: "2",
         name: "サイベリアン",
         // 入力で "salePrice: 400000" なのでそちらを採用
         breed: "Siberian cat",
+        color: "brown",
         gender: "Female",
         price: 400000,
         imageUrl:
@@ -43,13 +42,14 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000002",
         tags: ["cute", "famous", "cool", "on-sale"],
-        isComparable: false,
+
     },
     {
         id: "3",
         name: "Red cat",
         // details の "color= red" から
         breed: "red cat",
+        color: "red",
         gender: "Male",
         price: 240000,
         imageUrl:
@@ -62,13 +62,14 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000003",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "4",
         name: "cute kitten",
         // details の "color= white" から
         breed: "white cat",
+        color: "white",
         gender: "Female",
         price: 550000,
         imageUrl:
@@ -81,13 +82,14 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000004",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "5",
         name: "Matcha",
         // details には "種別=Minuet" があるので breedを Minuet に
         breed: "Minuet",
+        color: "touch of white",
         gender: "Male",
         price: 400000,
         imageUrl:
@@ -101,13 +103,14 @@ export const SAMPLE_PETS: Pet[] = [
         referenceNumber: "0000005",
         // featuresをそのまま
         tags: ["くりくりの目", "きれいな毛並み", "おてんば"],
-        isComparable: false,
+
     },
     {
         id: "uma-chan",
         name: "uma-chan",
         // details の "color= white" から
-        breed: "white cat",
+        breed: "kage",
+        color: "brown",
         gender: "Female",
         // salePrice: 49_800_000
         price: 49800000,
@@ -121,11 +124,12 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000006",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "arai-san",
         name: "arai-san",
+        color: "brown",
         breed: "white cat",
         gender: "Male",
         price: 50000,
@@ -139,12 +143,13 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000007",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "6",
         name: "cute kitten",
         breed: "white cat",
+        color: "white",
         gender: "Female",
         price: 550000,
         imageUrl:
@@ -157,12 +162,13 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000008",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "7",
         name: "cute kitten",
         breed: "white cat",
+        color: "white",
         gender: "Male",
         price: 550000,
         imageUrl:
@@ -175,12 +181,13 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000009",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "8",
         name: "cute kitten",
         breed: "white cat",
+        color: "white",
         gender: "Female",
         price: 550000,
         imageUrl:
@@ -193,12 +200,13 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000010",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "9",
         name: "cute kitten",
         breed: "white cat",
+        color: "white",
         gender: "Male",
         price: 550000,
         imageUrl:
@@ -211,12 +219,13 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000011",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
     {
         id: "10",
         name: "cute kitten",
         breed: "white cat",
+        color: "white",
         gender: "Female",
         price: 550000,
         imageUrl:
@@ -229,16 +238,12 @@ export const SAMPLE_PETS: Pet[] = [
         birthDate: "10月14日",
         referenceNumber: "0000012",
         tags: ["cute", "famous", "cool"],
-        isComparable: false,
+
     },
 ];
 
 export default function PetsPage() {
     const [pets, setPets] = useState<Pet[]>(SAMPLE_PETS)
-
-    const handleToggleCompare = (id: string) => {
-        setPets(pets.map((pet) => (pet.id === id ? {...pet, isComparable: !pet.isComparable} : pet)))
-    }
 
     const handleToggleLike = (id: string) => {
         setPets(pets.map((pet) => (pet.id === id ? {...pet, likes: pet.likes + 1} : pet)))
