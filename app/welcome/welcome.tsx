@@ -1,5 +1,4 @@
-import umaArai from "./uma-arai.png";
-import {Button} from "~/components/ui/button";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -9,38 +8,34 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "~/components/ui/alert-dialog"
-import React from "react";
-import { Checkbox } from "~/components/ui/checkbox"
-import { Label } from "~/components/ui/label"
+} from "~/components/ui/alert-dialog";
+import { Button } from "~/components/ui/button";
+import { Checkbox } from "~/components/ui/checkbox";
+import { Label } from "~/components/ui/label";
+import umaArai from "./uma-arai.png";
 
 function NextStep() {
   return (
-      <div className="flex flex-col space-y-2 mt-3">
-        <div className="flex items-center space-x-2">
-          <Checkbox id="step1"/>
-          <Label htmlFor="step1">バックエンドと接続してAPI応答を取得</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Checkbox id="step2"/>
-          <Label htmlFor="step2">データベースと接続してログイン可能にする</Label>
-        </div>
+    <div className="flex flex-col space-y-2 mt-3">
+      <div className="flex items-center space-x-2">
+        <Checkbox id="step1" />
+        <Label htmlFor="step1">バックエンドと接続してAPI応答を取得</Label>
       </div>
-  )
+      <div className="flex items-center space-x-2">
+        <Checkbox id="step2" />
+        <Label htmlFor="step2">データベースと接続してログイン可能にする</Label>
+      </div>
+    </div>
+  );
 }
 
-
-export function Welcome({message}: { message?: string }) {
+export function Welcome({ message }: { message?: string }) {
   return (
-      <main className="flex items-center justify-center pt-16 pb-4">
-        <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
+    <main className="flex items-center justify-center pt-16 pb-4">
+      <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
         <header className="flex flex-col items-center gap-9">
           <div className="w-[500px] max-w-[100vw] p-4">
-            <img
-              src={umaArai}
-              alt="v2"
-              className="block w-full"
-            />
+            <img src={umaArai} alt="v2" className="block w-full" />
             {/* <img
               src={logoDark}
               alt="React Router"
@@ -52,10 +47,14 @@ export function Welcome({message}: { message?: string }) {
           <nav className="rounded-3xl border border-gray-200 p-6 space-y-4">
             <p className="leading-6 text-gray-700 text-center">{message}</p>
             <AlertDialog>
-              <AlertDialogTrigger><Button className="w-full mx-auto">ログイン</Button></AlertDialogTrigger>
+              <AlertDialogTrigger>
+                <Button className="w-full mx-auto">ログイン</Button>
+              </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>おめでとうございます &#x1f389; </AlertDialogTitle>
+                  <AlertDialogTitle>
+                    おめでとうございます &#x1f389;{" "}
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
                     ここまで無事うごきましたか？引き続きハンズオンを進めてみましょう。
                     <NextStep />

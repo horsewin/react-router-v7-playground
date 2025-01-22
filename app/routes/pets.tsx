@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { PetCard } from "~/components/pet-card";
+import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
+import type { Route } from "../../.react-router/types/app/routes/+types/pets";
 
 // サンプルデータ
 export const SAMPLE_PETS: Pet[] = [
@@ -230,21 +232,46 @@ export const SAMPLE_PETS: Pet[] = [
   },
 ];
 
-export default function PetsPage() {
-  const [pets, setPets] = useState<Pet[]>(SAMPLE_PETS);
+export async function loader() {
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/v1/Pets`);
+    const data = await response.json();
+    if (response.ok) {
+      // snake_case から camelCase に変換
+      const camelCaseResponse = convertKeysToCamelCase<Pet[]>(data.data);
 
-  const handleToggleLike = (id: string) => {
-    setPets(
-      pets.map((pet) =>
-        pet.id === id ? { ...pet, likes: pet.likes + 1 } : pet
-      )
-    );
-  };
+      console.log(JSON.stringify(camelCaseResponse));
+      return { pets: camelCaseResponse };
+    }
+  } catch (error) {
+    console.warn(error);
+    console.warn("fallback to sample data");
+    return { pets: SAMPLE_PETS };
+  }
+}
+
+/**
+ *
+ * @param loaderData
+ * @constructor
+ */
+export default function PetsPage({ loaderData }: Route.ComponentProps) {
+  const pets = loaderData?.pets;
+  const handleToggleLike = useCallback((id: string) => {
+    console.log(id);
+  }, []);
+  // const handleToggleLike = (id: string) => {
+  // 	setPets(
+  // 		pets.map((pet) =>
+  // 			pet.id === id ? { ...pet, likes: pet.likes + 1 } : pet,
+  // 		),
+  // 	);
+  // };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-        {pets.map((pet) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {pets?.map((pet) => (
           <PetCard key={pet.id} pet={pet} onToggleLike={handleToggleLike} />
         ))}
       </div>

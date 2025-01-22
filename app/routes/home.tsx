@@ -1,7 +1,7 @@
+import { Welcome } from "~/welcome/welcome";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "sample web app" },
     { name: "description", content: "Welcome to v2" },
@@ -10,9 +10,7 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader() {
   try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/v1/helloworld`
-    );
+    const response = await fetch(`${process.env.BACKEND_URL}/v1/helloworld`);
     const data = await response.json();
     if (response.ok) {
       console.log(JSON.stringify(data));
