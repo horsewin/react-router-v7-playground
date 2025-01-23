@@ -17,7 +17,7 @@ function snakeToCamel(str: string): string {
  * すべてのキーを camelCase に変換した新しい構造を返す関数
  */
 export function convertKeysToCamelCase<T = Record<string, unknown>>(
-  data: any,
+  data: unknown | unknown[] | object,
 ): T {
   if (Array.isArray(data)) {
     // 配列の場合は、各要素に対して再帰的に処理
@@ -33,5 +33,5 @@ export function convertKeysToCamelCase<T = Record<string, unknown>>(
   }
 
   // プリミティブ型（文字列・数値・null・undefinedなど）はそのまま返す
-  return data;
+  return data as unknown as T;
 }

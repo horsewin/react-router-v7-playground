@@ -7,7 +7,6 @@ export interface Pet {
   price: number;
   imageUrl: string;
   likes: number;
-  // TODO: マッピングが必要
   shop: {
     name: string;
     location: string;

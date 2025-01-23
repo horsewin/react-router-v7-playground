@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { PetCard } from "~/components/pet-card";
+import { useCart } from "~/contexts/cartProvider";
 import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
 import type { Route } from "../../.react-router/types/app/routes/+types/pets";
@@ -240,7 +241,6 @@ export async function loader() {
       // snake_case から camelCase に変換
       const camelCaseResponse = convertKeysToCamelCase<Pet[]>(data.data);
 
-      console.log(JSON.stringify(camelCaseResponse));
       return { pets: camelCaseResponse };
     }
   } catch (error) {
@@ -256,6 +256,7 @@ export async function loader() {
  * @constructor
  */
 export default function PetsPage({ loaderData }: Route.ComponentProps) {
+  const { cartId } = useCart();
   const pets = loaderData?.pets;
   const handleToggleLike = useCallback((id: string) => {
     console.log(id);

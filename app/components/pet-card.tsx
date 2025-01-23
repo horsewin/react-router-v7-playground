@@ -1,11 +1,10 @@
-import { Heart, Maximize2 } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useState } from "react";
 import { PetDetailsModal } from "~/components/pet-details-modal";
 import { ReservationFormModal } from "~/components/reservation-form";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
-import { Checkbox } from "~/components/ui/checkbox";
 import type { Pet } from "~/types/pet";
 
 interface PetCardProps {
