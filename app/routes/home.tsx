@@ -14,7 +14,7 @@ export async function loader() {
     const data = await response.json();
     if (response.ok) {
       console.log(JSON.stringify(data));
-      return { message: data.message };
+      return { message: data.data.message };
     } else {
       return {
         message: "API呼び出しでエラーが発生しましたが、このまま続けましょう！",
