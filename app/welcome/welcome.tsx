@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,15 +14,15 @@ import { Checkbox } from "~/components/ui/checkbox";
 import { Label } from "~/components/ui/label";
 import umaArai from "./uma-arai.png";
 
-function NextStep() {
+function NextStep(props: { complete1: boolean; complete2: boolean }) {
   return (
     <div className="flex flex-col space-y-2 mt-3">
       <div className="flex items-center space-x-2">
-        <Checkbox id="step1" />
+        <Checkbox id="step1" checked={props.complete1} disabled />
         <Label htmlFor="step1">バックエンドと接続してAPI応答を取得</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <Checkbox id="step2" />
+        <Checkbox id="step2" checked={props.complete2} disabled />
         <Label htmlFor="step2">データベースと接続してログイン可能にする</Label>
       </div>
     </div>
@@ -50,7 +50,7 @@ export function Welcome({ message }: { message?: string }) {
                   </AlertDialogTitle>
                   <AlertDialogDescription>
                     ここまで無事うごきましたか？引き続きハンズオンを進めてみましょう。
-                    <NextStep />
+                    <NextStep complete1={true} complete2={false} />
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
