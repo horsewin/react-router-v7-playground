@@ -19,7 +19,7 @@ export function Header({ className }: { className?: string }) {
       className={`
         "bg-primary/80  text-contrast"
         ${!isHome && y > 50 ? "shadow-lightHeader" : ""}
-        hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none px-20 py-4
+        h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none px-20 py-4
         ${className}
       `}
     >
