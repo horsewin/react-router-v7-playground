@@ -31,7 +31,6 @@ export function Header({ className }: { className?: string }) {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              {/* TODO: バックエンド接続がない場合はアクセスさせない */}
               <Button variant="ghost" asChild>
                 <Link to="/pets">Find your buddy</Link>
               </Button>

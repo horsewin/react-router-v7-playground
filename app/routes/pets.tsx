@@ -233,7 +233,6 @@ export const SAMPLE_PETS: Pet[] = [
   },
 ];
 
-// TODO: バックエンド接続がない場合はアクセスさせない
 export async function loader() {
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/v1/pets`);
