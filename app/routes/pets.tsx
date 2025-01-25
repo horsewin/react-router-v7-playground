@@ -235,7 +235,7 @@ export const SAMPLE_PETS: Pet[] = [
 
 export async function loader() {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/v1/Pets`);
+    const response = await fetch(`${process.env.BACKEND_URL}/v1/pets`);
     const data = await response.json();
     if (response.ok) {
       // snake_case から camelCase に変換
