@@ -50,7 +50,7 @@ export function Welcome({ message }: { message?: string }) {
                   </AlertDialogTitle>
                   <AlertDialogDescription>
                     ここまで無事うごきましたか？引き続きハンズオンを進めてみましょう。
-                    <NextStep complete1={false} complete2={false} />
+                    <NextStep complete1={true} complete2={false} />
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
