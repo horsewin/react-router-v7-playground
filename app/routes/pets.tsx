@@ -4,6 +4,7 @@ import { useCart } from "~/contexts/cartProvider";
 import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
 import type { Route } from "../../.react-router/types/app/routes/+types/pets";
+import { ActionArgs, json } from "react-router";
 
 // サンプルデータ
 export const SAMPLE_PETS: Pet[] = [
@@ -250,30 +251,49 @@ export async function loader() {
   }
 }
 
+export async function action({ request, params }: ActionArgs) {
+  const { id, userId } = params;
+  if (!id || !userId) {
+    return json({ error: "Pet ID and User ID is required" }, { status: 400 });
+  }
+
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/v1/pets/${id}/like`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "user_id": userId,
+        value: true
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update like status');
+    }
+
+    const updatedPet: Pet = await response.json();
+    return json(updatedPet);
+  } catch (error) {
+    console.error('Error updating like status:', error);
+    return json({ error: "Failed to update like status" }, { status: 500 });
+  }
+}
+
 /**
  *
  * @param loaderData
  * @constructor
  */
 export default function PetsPage({ loaderData }: Route.ComponentProps) {
-  const { cartId } = useCart();
   const pets = loaderData?.pets;
-  const handleToggleLike = useCallback((id: string) => {
-    console.log(id);
-  }, []);
-  // const handleToggleLike = (id: string) => {
-  // 	setPets(
-  // 		pets.map((pet) =>
-  // 			pet.id === id ? { ...pet, likes: pet.likes + 1 } : pet,
-  // 		),
-  // 	);
-  // };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {pets?.map((pet) => (
-          <PetCard key={pet.id} pet={pet} onToggleLike={handleToggleLike} />
+          <PetCard key={pet.id} pet={pet} />
         ))}
       </div>
     </div>

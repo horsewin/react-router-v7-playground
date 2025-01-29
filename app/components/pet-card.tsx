@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import { useFetcher } from "react-router";
 import { PetDetailsModal } from "~/components/pet-details-modal";
 import { ReservationFormModal } from "~/components/reservation-form";
 import { Badge } from "~/components/ui/badge";
@@ -11,17 +12,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { useCart } from "~/contexts/cartProvider";
 import type { Pet } from "~/types/pet";
 
 interface PetCardProps {
   pet: Pet;
-  onToggleLike: (id: string) => void;
 }
 
-export function PetCard({ pet, onToggleLike }: PetCardProps) {
+export function PetCard({ pet }: PetCardProps) {
+  const { cartId } = useCart();
+
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const formattedPrice = new Intl.NumberFormat("ja-JP").format(pet.price);
+  const fetcher = useFetcher();
+
+  const handleToggle = () => {
+    fetcher.submit(
+      {
+        "user_id": cartId,
+        "value": true
+      },
+      {
+      method: "post",
+      action: `/pets/${pet.id}/like`,
+    });
+  };
+
 
   return (
     <TooltipProvider>
@@ -39,7 +56,8 @@ export function PetCard({ pet, onToggleLike }: PetCardProps) {
                 variant="secondary"
                 size="sm"
                 className="bg-white/80 backdrop-blur-sm"
-                onClick={() => onToggleLike(pet.id)}
+                onClick={handleToggle}
+                disabled={fetcher.state === "submitting"}
               >
                 <Heart className={pet.likes > 0 ? "fill-current" : ""} />
                 <span>{pet.likes}</span>
