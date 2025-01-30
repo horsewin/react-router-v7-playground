@@ -1,10 +1,7 @@
-import { useCallback, useState } from "react";
 import { PetCard } from "~/components/pet-card";
-import { useCart } from "~/contexts/cartProvider";
 import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
-import type { Route } from "../../.react-router/types/app/routes/+types/pets";
-import { ActionArgs, json } from "react-router";
+import type { Route } from "../../../.react-router/types/app/routes/pets/+types";
 
 // サンプルデータ
 export const SAMPLE_PETS: Pet[] = [
@@ -248,36 +245,6 @@ export async function loader() {
     console.warn(error);
     console.warn("fallback to sample data");
     return { pets: SAMPLE_PETS };
-  }
-}
-
-export async function action({ request, params }: ActionArgs) {
-  const { id, userId } = params;
-  if (!id || !userId) {
-    return json({ error: "Pet ID and User ID is required" }, { status: 400 });
-  }
-
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/v1/pets/${id}/like`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "user_id": userId,
-        value: true
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to update like status');
-    }
-
-    const updatedPet: Pet = await response.json();
-    return json(updatedPet);
-  } catch (error) {
-    console.error('Error updating like status:', error);
-    return json({ error: "Failed to update like status" }, { status: 500 });
   }
 }
 

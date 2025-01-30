@@ -28,17 +28,18 @@ export function PetCard({ pet }: PetCardProps) {
   const fetcher = useFetcher();
 
   const handleToggle = () => {
+    console.log("handleToggle");
     fetcher.submit(
       {
-        "user_id": cartId,
-        "value": true
+        user_id: cartId,
+        like: true,
       },
       {
-      method: "post",
-      action: `/pets/${pet.id}/like`,
-    });
+        method: "post",
+        action: `/pets/${pet.id}`,
+      },
+    );
   };
-
 
   return (
     <TooltipProvider>
