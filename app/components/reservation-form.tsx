@@ -1,9 +1,5 @@
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
-import { Calendar } from "~/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -13,12 +9,6 @@ import {
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
-import { cn } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
 
 interface ReservationFormModalProps {
@@ -34,7 +24,15 @@ export function ReservationFormModal({
 }: ReservationFormModalProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState(
+    new Date()
+      .toLocaleDateString("ja-JP", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replaceAll("/", ""),
+  );
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -42,6 +40,7 @@ export function ReservationFormModal({
   });
 
   const validateForm = () => {
+    console.log("validateForm");
     let isValid = true;
     const newErrors = { name: "", email: "", date: "" };
 
@@ -60,6 +59,15 @@ export function ReservationFormModal({
 
     if (!date) {
       newErrors.date = "見学予定日時は必須です";
+      isValid = false;
+    } else if (new Date(date) < new Date()) {
+      newErrors.date = "過去の日時は選択できません";
+      isValid = false;
+    }
+    // yyyymmdd形式になっているか
+    else if (!/^\d{8}$/.test(date)) {
+      newErrors.date =
+        "日時の形式が正しくありません。20250101のように入力してください";
       isValid = false;
     }
 
@@ -81,7 +89,7 @@ export function ReservationFormModal({
           petId: pet.id,
           name,
           email,
-          reservationDatetime: date?.toISOString(),
+          reservationDatetime: date,
         }),
       });
       if (response.ok) {
@@ -115,14 +123,13 @@ export function ReservationFormModal({
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="col-span-3"
-              required
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm col-start-2 col-span-3">
+                {errors.name}
+              </p>
+            )}
           </div>
-          {errors.name && (
-            <p className="text-red-500 text-sm col-start-2 col-span-3">
-              {errors.name}
-            </p>
-          )}
 
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="email" className="text-right">
@@ -134,52 +141,28 @@ export function ReservationFormModal({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="col-span-3"
-              required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm col-start-2 col-span-3">
+                {errors.email}
+              </p>
+            )}
           </div>
-          {errors.email && (
-            <p className="text-red-500 text-sm col-start-2 col-span-3">
-              {errors.email}
-            </p>
-          )}
 
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">見学予定日時</Label>
-            <div className="col-span-3">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !date && "text-muted-foreground",
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? (
-                      format(date, "PPP", { locale: ja })
-                    ) : (
-                      <span>日付を選択</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    initialFocus
-                    disabled={(date) => date < new Date()}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
+            <Input
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="col-span-3"
+            />
+            {errors.date && (
+              <p className="text-red-500 text-sm col-start-2 col-span-3">
+                {errors.date}
+              </p>
+            )}
           </div>
-          {errors.date && (
-            <p className="text-red-500 text-sm col-start-2 col-span-3">
-              {errors.date}
-            </p>
-          )}
 
           <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="outline" onClick={onClose}>
