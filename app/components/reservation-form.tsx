@@ -80,16 +80,16 @@ export function ReservationFormModal({
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/reserve", {
+      const response = await fetch("/v1/pets/:id/reservation" + "", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          petId: pet.id,
-          name,
+          pet_id: pet.id,
+          full_name: name,
           email,
-          reservationDatetime: date,
+          reservation_date: date,
         }),
       });
       if (response.ok) {

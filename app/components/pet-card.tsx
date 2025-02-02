@@ -28,10 +28,9 @@ export function PetCard({ pet }: PetCardProps) {
   const fetcher = useFetcher();
 
   const handleToggle = () => {
-    console.log("handleToggle");
     fetcher.submit(
       {
-        user_id: cartId,
+        userId: cartId,
         like: true,
       },
       {

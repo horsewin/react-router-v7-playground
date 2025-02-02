@@ -15,7 +15,7 @@ export async function action({ params, request }: Route.ActionArgs) {
   const body = Object.fromEntries(formData);
   const { like, userId } = body;
   if (!like || !userId) {
-    console.log({ body });
+    console.log("Missing required fields", like, userId, id, { body });
     return {
       status: 400,
       body: "Missing required fields",
