@@ -22,7 +22,6 @@ export async function action({ params, request }: Route.ActionArgs) {
     };
   }
 
-  console.log(`Updating like status for pet ${id} by user ${userId}`);
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/v1/pets/${id}/like`,

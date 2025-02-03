@@ -13,5 +13,6 @@ export default [
   ...prefix("pets", [
     index("routes/pets/index.tsx"),
     route(":id", "routes/pets/pet.tsx"),
+    route(":id/reservation", "routes/pets/reservation.tsx"),
   ]),
 ] satisfies RouteConfig;

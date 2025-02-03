@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { useFetcher, useSubmit } from "react-router";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -9,6 +10,7 @@ import {
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { useCart } from "~/contexts/cartProvider";
 import type { Pet } from "~/types/pet";
 
 interface ReservationFormModalProps {
@@ -38,9 +40,10 @@ export function ReservationFormModal({
     email: "",
     date: "",
   });
+  const fetcher = useFetcher();
+  const { cartId } = useCart();
 
   const validateForm = () => {
-    console.log("validateForm");
     let isValid = true;
     const newErrors = { name: "", email: "", date: "" };
 
@@ -75,29 +78,29 @@ export function ReservationFormModal({
     return isValid;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
-      const response = await fetch("/v1/pets/:id/reservation" + "", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          pet_id: pet.id,
-          full_name: name,
+      await fetcher.submit(
+        {
+          userId: cartId,
+          fullName: name,
           email,
-          reservation_date: date,
-        }),
-      });
-      if (response.ok) {
-        alert("予約が完了しました。");
-        onClose();
-      } else {
-        throw new Error("予約に失敗しました。");
-      }
+          reservationDate: date,
+        },
+        {
+          method: "post",
+          action: `/pets/${pet.id}/reservation`,
+        },
+      );
+
+      alert("予約が完了しました。");
+      onClose();
     } catch (error) {
       console.error("Error:", error);
       alert("予約に失敗しました。もう一度お試しください。");
@@ -106,7 +109,13 @@ export function ReservationFormModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        onInteractOutside={(e) => {
+          // Note: 画面外クリックで閉じないようにする
+          e.preventDefault();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>{pet.name} の見学予約</DialogTitle>
           <DialogDescription>
@@ -162,6 +171,7 @@ export function ReservationFormModal({
                 {errors.date}
               </p>
             )}
+            <Input id="userId" hidden={true} value={cartId} />
           </div>
 
           <div className="flex justify-end gap-2 pt-4">
