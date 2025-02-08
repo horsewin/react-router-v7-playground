@@ -6,7 +6,7 @@
     "build": "react-router build",
     "preinstall": "npx only-allow pnpm",
     "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
+    "start": "PORT=8080 react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --build --noEmit",
     "lint": "pnpm biome lint --write ./app",
     "check-node": "node -v"
