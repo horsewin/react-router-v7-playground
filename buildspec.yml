@@ -21,7 +21,6 @@ phases:
       - echo ===== build phase =====
       - echo Docker Build started on `date`
       - echo Building the Docker image...
-      - cd sample_app/frontend_app/
       - docker build -t ${APP_NAME}:latest .
       - docker tag ${APP_NAME}:latest ${ECR_REPOS_URI}:${IMAGE_TAG}
       - docker image ls
