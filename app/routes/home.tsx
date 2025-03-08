@@ -10,6 +10,7 @@ export function meta() {
 }
 
 export async function loader() {
+  console.log("config", config);
   let dataBackendUrl = null;
   let dataServiceConnect = null;
   try {
