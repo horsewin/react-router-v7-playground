@@ -2,6 +2,7 @@ import { PetCard } from "~/components/pet-card";
 import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";
 import type { Route } from "../../../.react-router/types/app/routes/pets/+types";
+import { config } from "~/lib/config";
 
 // サンプルデータ
 export const SAMPLE_PETS: Pet[] = [
@@ -233,7 +234,9 @@ export const SAMPLE_PETS: Pet[] = [
 
 export async function loader() {
   try {
-    const response = await fetch(`${process.env.BACKEND_FQDN}/v1/pets`);
+    const response = await fetch(
+      `${config.api.schema}${config.api.backendUrl}/v1/pets`
+    );
     const data = await response.json();
     if (response.ok) {
       // snake_case から camelCase に変換

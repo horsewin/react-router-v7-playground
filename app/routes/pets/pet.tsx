@@ -1,6 +1,7 @@
 import { useFetcher } from "react-router";
 import { Button } from "~/components/ui/button";
 import type { Route } from "../../../.react-router/types/app/routes/pets/+types/pet";
+import { config } from "~/lib/config";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
@@ -24,7 +25,7 @@ export async function action({ params, request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_FQDN}/v1/pets/${id}/like`,
+      `${config.api.schema}${config.api.backendUrl}/v1/pets/${id}/like`,
       {
         method: "POST",
         headers: {

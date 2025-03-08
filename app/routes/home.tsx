@@ -1,5 +1,6 @@
 import { Welcome } from "~/welcome/welcome";
 import type { Route } from "./+types/home";
+import { config } from "~/lib/config";
 
 export function meta() {
   return [
@@ -13,10 +14,10 @@ export async function loader() {
   let dataServiceConnect = null;
   try {
     const responseBackendUrl = await fetch(
-      `${process.env.BACKEND_FQDN}/v1/helloworld`
+      `${config.api.schema}${config.api.backendUrl}/v1/helloworld`
     );
     const responseServiceConnect = await fetch(
-      `${process.env.BACKEND_SERVICE_CONNECT_FQDN}/v1/helloworld`
+      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
     );
 
     dataBackendUrl = await responseBackendUrl.json();

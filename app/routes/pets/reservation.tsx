@@ -1,3 +1,4 @@
+import { config } from "~/lib/config";
 import type { Route } from "../../../.react-router/types/app/routes/pets/+types/reservation";
 
 export async function action({ params, request }: Route.ActionArgs) {
@@ -16,7 +17,7 @@ export async function action({ params, request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_FQDN}/v1/pets/${id}/reservation`,
+      `${config.api.schema}${config.api.backendUrl}/v1/pets/${id}/reservation`,
       {
         method: "POST",
         headers: {
