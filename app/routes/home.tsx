@@ -16,21 +16,31 @@ export async function loader() {
   try {
     const responseBackendUrl = await fetch(
       `${config.api.schema}${config.api.backendUrl}/v1/helloworld`
-    );
+    ).catch(error => {
+      console.error("Error fetching data:", error);
+      dataBackendUrl = {
+        data: { message: "Hello, API response cannot be used" }
+      };
+    });
     const responseServiceConnect = await fetch(
       `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
-    );
+    ).catch(error => {
+      console.error("Error fetching data for service connect:", error);
+      dataServiceConnect = {
+        data: {
+          message: "Hello, API response cannot be used for service connect"
+        }
+      };
+    });
 
-    dataBackendUrl = await responseBackendUrl.json();
-    dataServiceConnect = await responseServiceConnect.json();
+    if (responseBackendUrl instanceof Response && !dataBackendUrl) {
+      dataBackendUrl = await responseBackendUrl.json();
+    }
+    if (responseServiceConnect instanceof Response && !dataServiceConnect) {
+      dataServiceConnect = await responseServiceConnect.json();
+    }
   } catch (error) {
-    console.log("Error domain:", config.api.schema, config.api.backendUrl);
-    console.log(
-      "Error domain for service connect:",
-      config.api.schema,
-      config.api.serviceConnectUrl
-    );
-    console.error("Error fetching data:", error);
+    console.error("some error occurred", error);
     return {
       message:
         dataBackendUrl?.data.message ?? "Hello, API response cannot be used",
