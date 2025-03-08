@@ -7,7 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialogTrigger
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -29,7 +29,13 @@ function NextStep(props: { complete1: boolean; complete2: boolean }) {
   );
 }
 
-export function Welcome({ message }: { message?: string }) {
+export function Welcome({
+  message,
+  messageServiceConnect
+}: {
+  message?: string;
+  messageServiceConnect?: string;
+}) {
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center min-h-0">
@@ -39,6 +45,9 @@ export function Welcome({ message }: { message?: string }) {
         <div className="max-w-[300px] w-full px-4">
           <nav className="flex flex-col gap-6 rounded-3xl border border-gray-200 p-6">
             <p className="leading-6 text-gray-700 text-center">{message}</p>
+            <p className="leading-6 text-gray-700 text-center">
+              {messageServiceConnect}
+            </p>
             <AlertDialog>
               <AlertDialogTrigger className="w-full mx-auto">
                 <Button className="w-full">ログイン</Button>
