@@ -23,6 +23,13 @@ export async function loader() {
     dataBackendUrl = await responseBackendUrl.json();
     dataServiceConnect = await responseServiceConnect.json();
   } catch (error) {
+    console.log("Error domain:", config.api.schema, config.api.backendUrl);
+    console.log(
+      "Error domain for service connect:",
+      config.api.schema,
+      config.api.serviceConnectUrl
+    );
+    console.error("Error fetching data:", error);
     return {
       message:
         dataBackendUrl?.data.message ?? "Hello, API response cannot be used",
