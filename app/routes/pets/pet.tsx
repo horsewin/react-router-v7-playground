@@ -18,29 +18,29 @@ export async function action({ params, request }: Route.ActionArgs) {
     console.log("Missing required fields", like, userId, id, { body });
     return {
       status: 400,
-      body: "Missing required fields",
+      body: "Missing required fields"
     };
   }
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/v1/pets/${id}/like`,
+      `${process.env.BACKEND_FQDN}/v1/pets/${id}/like`,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           user_id: userId,
-          value: true,
-        }),
-      },
+          value: true
+        })
+      }
     );
 
     if (!response.ok) {
       return {
         body: "Failed to update like status",
-        status: 500,
+        status: 500
       };
     }
 
@@ -59,12 +59,12 @@ export default function PetPage({ loaderData }: Route.ComponentProps) {
     fetcher.submit(
       {
         userId: "5",
-        like: true,
+        like: true
       },
       {
         method: "post",
-        action: "/pet/3",
-      },
+        action: "/pet/3"
+      }
     );
   };
 

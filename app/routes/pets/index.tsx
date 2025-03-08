@@ -17,12 +17,12 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 10,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000001",
     // features + flag("new") を合わせて tags に入れる例
-    tags: ["cute", "famous", "cool", "new"],
+    tags: ["cute", "famous", "cool", "new"]
   },
   {
     id: "2",
@@ -37,11 +37,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 3,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000002",
-    tags: ["cute", "famous", "cool", "on-sale"],
+    tags: ["cute", "famous", "cool", "on-sale"]
   },
   {
     id: "3",
@@ -56,11 +56,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 7,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000003",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "4",
@@ -75,11 +75,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 12,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000004",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "5",
@@ -94,12 +94,12 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 5,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000005",
     // featuresをそのまま
-    tags: ["くりくりの目", "きれいな毛並み", "おてんば"],
+    tags: ["くりくりの目", "きれいな毛並み", "おてんば"]
   },
   {
     id: "uma-chan",
@@ -115,11 +115,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 15,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000006",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "arai-san",
@@ -133,11 +133,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 9,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000007",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "6",
@@ -151,11 +151,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 2,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000008",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "7",
@@ -169,11 +169,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 11,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000009",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "8",
@@ -187,11 +187,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 4,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000010",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "9",
@@ -205,11 +205,11 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 8,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000011",
-    tags: ["cute", "famous", "cool"],
+    tags: ["cute", "famous", "cool"]
   },
   {
     id: "10",
@@ -223,17 +223,17 @@ export const SAMPLE_PETS: Pet[] = [
     likes: 6,
     shop: {
       name: "uma-arai shop 2nd",
-      location: "Kanagawa",
+      location: "Kanagawa"
     },
     birthDate: "10月14日",
     referenceNumber: "0000012",
-    tags: ["cute", "famous", "cool"],
-  },
+    tags: ["cute", "famous", "cool"]
+  }
 ];
 
 export async function loader() {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/v1/pets`);
+    const response = await fetch(`${process.env.BACKEND_FQDN}/v1/pets`);
     const data = await response.json();
     if (response.ok) {
       // snake_case から camelCase に変換
@@ -259,7 +259,7 @@ export default function PetsPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {pets?.map((pet) => (
+        {pets?.map(pet => (
           <PetCard key={pet.id} pet={pet} />
         ))}
       </div>

@@ -13,10 +13,10 @@ export async function loader() {
   let dataServiceConnect = null;
   try {
     const responseBackendUrl = await fetch(
-      `${process.env.BACKEND_URL}/v1/helloworld`
+      `${process.env.BACKEND_FQDN}/v1/helloworld`
     );
     const responseServiceConnect = await fetch(
-      `${process.env.BACKEND_SERVICE_CONNECT_URL}/v1/helloworld`
+      `${process.env.BACKEND_SERVICE_CONNECT_FQDN}/v1/helloworld`
     );
 
     dataBackendUrl = await responseBackendUrl.json();

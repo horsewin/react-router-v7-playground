@@ -10,31 +10,31 @@ export async function action({ params, request }: Route.ActionArgs) {
     console.log("Missing required fields", { body });
     return {
       status: 400,
-      body: "Missing required fields",
+      body: "Missing required fields"
     };
   }
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/v1/pets/${id}/reservation`,
+      `${process.env.BACKEND_FQDN}/v1/pets/${id}/reservation`,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           user_id: userId,
           full_name: fullName,
           email,
-          reservation_date: reservationDate,
-        }),
-      },
+          reservation_date: reservationDate
+        })
+      }
     );
 
     if (!response.ok) {
       return {
         body: "Failed to update like status",
-        status: 500,
+        status: 500
       };
     }
 
