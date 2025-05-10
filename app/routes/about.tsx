@@ -14,20 +14,20 @@ export async function loader() {
   let dataServiceConnect = null;
   try {
     const responseBackendUrl = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/helloworld`
+      `${config.api.schema}${config.api.backendUrl}/v1/helloworld/error`
     ).catch(error => {
       console.error("Error fetching data:", error);
       dataBackendUrl = {
-        data: { message: "Hello, API response cannot be used" }
+        data: { message: "about info is not found" }
       };
     });
     const responseServiceConnect = await fetch(
-      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
+      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld/error`
     ).catch(error => {
       console.error("Error fetching data for service connect:", error);
       dataServiceConnect = {
         data: {
-          message: "Hello, API response cannot be used for service connect"
+          message: "about info is not found for service connect"
         }
       };
     });
@@ -41,10 +41,9 @@ export async function loader() {
   } catch (error) {
     console.error("some error occurred", error);
     return {
-      message:
-        dataBackendUrl?.data.message ?? "Hello, API response cannot be used",
+      message: dataBackendUrl?.data.message ?? "about info is not found",
       messageServiceConnect:
-        dataServiceConnect?.data.message ?? "Hello, API response cannot be used"
+        dataServiceConnect?.data.message ?? "about info is not found"
     };
   }
 
@@ -54,9 +53,13 @@ export async function loader() {
   };
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
+export default function About({ loaderData }: Route.ComponentProps) {
   const { message, messageServiceConnect } = loaderData;
   return (
-    <Welcome message={message} messageServiceConnect={messageServiceConnect} />
+    <div>
+      <h1>About</h1>
+      <p>{message}</p>
+      <p>{messageServiceConnect}</p>
+    </div>
   );
 }
