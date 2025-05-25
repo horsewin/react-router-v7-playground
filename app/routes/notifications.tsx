@@ -53,7 +53,7 @@ function NotificationListItem({
 }: {
   notification: Notification;
 }) {
-  const { markAsRead, removeNotification } = useNotifications();
+  const { markAsRead } = useNotifications();
 
   const getIcon = () => {
     switch (notification.type) {
@@ -87,11 +87,6 @@ function NotificationListItem({
     if (!notification.isRead) {
       markAsRead(notification.id);
     }
-  };
-
-  const handleRemove = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    removeNotification(notification.id);
   };
 
   const timeAgo = formatDistanceToNow(notification.timestamp, {
@@ -140,14 +135,6 @@ function NotificationListItem({
               </div>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
-            onClick={handleRemove}
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </div>
       </CardContent>
     </Card>
@@ -162,7 +149,7 @@ export default function NotificationsPage({
   const total = loaderData?.total || 0;
 
   // クライアント側の通知管理機能も使用
-  const { markAllAsRead, clearAllNotifications } = useNotifications();
+  const { markAllAsRead } = useNotifications();
 
   const notifications = serverNotifications;
   const unreadCount = notifications.filter(
@@ -196,16 +183,6 @@ export default function NotificationsPage({
               >
                 <CheckCircle className="h-4 w-4" />
                 すべて既読にする
-              </Button>
-            )}
-            {hasNotifications && (
-              <Button
-                variant="destructive"
-                onClick={clearAllNotifications}
-                className="flex items-center gap-2"
-              >
-                <X className="h-4 w-4" />
-                すべて削除
               </Button>
             )}
           </div>

@@ -5,7 +5,6 @@ import { config } from "~/lib/config";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { id } = params;
-  console.log(`Loading pet ${id}`);
   return { id: id };
 }
 
@@ -56,7 +55,6 @@ export default function PetPage({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
 
   const handleToggle = () => {
-    console.log("handleToggle");
     fetcher.submit(
       {
         userId: "5",

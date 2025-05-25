@@ -24,13 +24,6 @@ export type NotificationsResponse = {
 };
 
 export type NotificationContextType = {
-  notifications: Notification[];
-  unreadCount: number;
-  addNotification: (
-    notification: Omit<Notification, "id" | "timestamp" | "isRead">
-  ) => void;
   markAsRead: (id: string) => void;
   markAllAsRead: () => void;
-  removeNotification: (id: string) => void;
-  clearAllNotifications: () => void;
 };
