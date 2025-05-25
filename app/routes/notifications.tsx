@@ -30,7 +30,7 @@ export async function loader() {
     if (response.ok) {
       const data: NotificationsResponse = await response.json();
       const notifications = convertServerNotificationsToClient(data.data);
-      return { notifications, total: data.total };
+      return { notifications, total: notifications.length };
     } else {
       console.warn(`API Error: ${response.status} ${response.statusText}`);
       return {
@@ -94,7 +94,6 @@ function NotificationListItem({
     removeNotification(notification.id);
   };
 
-  console.log(JSON.stringify(notification));
   const timeAgo = formatDistanceToNow(notification.timestamp, {
     addSuffix: true,
     locale: ja
@@ -138,14 +137,6 @@ function NotificationListItem({
               <p className="text-gray-700 mb-3">{notification.message}</p>
               <div className="flex items-center gap-3 text-sm text-gray-500">
                 <span>{timeAgo}</span>
-                {notification.relatedPetName && (
-                  <>
-                    <span>•</span>
-                    <span className="font-medium">
-                      {notification.relatedPetName}
-                    </span>
-                  </>
-                )}
               </div>
             </div>
           </div>

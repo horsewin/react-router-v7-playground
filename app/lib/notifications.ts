@@ -12,9 +12,7 @@ export function convertServerNotificationToClient(
     message: serverNotification.message,
     type: serverNotification.type as Notification["type"],
     isRead: serverNotification.is_read,
-    timestamp: new Date(serverNotification.updated_at),
-    relatedPetId: serverNotification.related_pet_id,
-    relatedPetName: serverNotification.related_pet_name
+    timestamp: new Date(serverNotification.updated_at)
   };
 }
 
@@ -32,12 +30,10 @@ export const SAMPLE_NOTIFICATIONS: Notification[] = [
   {
     id: "1",
     title: "予約完了",
-    message: "シベリアンの見学予約が完了しました",
+    message: "サイベリアンの見学予約が完了しました",
     type: "reservation",
     isRead: false,
-    timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30分前
-    relatedPetId: "2",
-    relatedPetName: "シベリアン"
+    timestamp: new Date(Date.now() - 1000 * 60 * 30) // 30分前
   },
   {
     id: "2",
@@ -45,8 +41,6 @@ export const SAMPLE_NOTIFICATIONS: Notification[] = [
     message: "茶トラ猫が新しく仲間入りしました",
     type: "new",
     isRead: false,
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2時間前
-    relatedPetId: "1",
-    relatedPetName: "茶トラ猫"
+    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2) // 2時間前
   }
 ];
