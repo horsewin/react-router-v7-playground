@@ -12,6 +12,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { useCart } from "~/contexts/cartProvider";
+import { useNotifications } from "~/contexts/notificationProvider";
 import type { Pet } from "~/types/pet";
 import {
   reservationFormSchema,
@@ -19,7 +20,7 @@ import {
   getDefaultValues,
   transformToSubmissionData
 } from "~/schemas/reservation";
-import { CheckCircle, AlertCircle, Calendar, Heart } from "lucide-react";
+import { CheckCircle, AlertCircle, Calendar } from "lucide-react";
 import { useEffect, useCallback, forwardRef } from "react";
 import { ComponentProps } from "react";
 import { useToast } from "~/hooks/use-toast";
@@ -65,6 +66,7 @@ export function ReservationFormModal({
   onClose
 }: ReservationFormModalProps) {
   const { cartId } = useCart();
+  const { addNotification } = useNotifications();
   const fetcher = useFetcher();
   const { toast } = useToast();
 
@@ -124,6 +126,7 @@ export function ReservationFormModal({
         onClose();
       } catch (error) {
         console.error("Reservation error:", error);
+
         toast({
           variant: "destructive",
           title: "❌ 予約に失敗しました",
@@ -133,7 +136,7 @@ export function ReservationFormModal({
         });
       }
     },
-    [cartId, fetcher, pet.id, reset, onClose, toast]
+    [cartId, fetcher, pet.id, pet.name, reset, onClose, toast, addNotification]
   );
 
   const handleClose = useCallback(() => {
@@ -152,7 +155,6 @@ export function ReservationFormModal({
     (fieldName: keyof ReservationFormData) => {
       const hasError = !!errors[fieldName];
       const isTouched = touchedFields[fieldName];
-      const isDirty = dirtyFields[fieldName];
       const hasValue = watchedValues[fieldName]?.length > 0;
 
       if (hasError) return "error";
