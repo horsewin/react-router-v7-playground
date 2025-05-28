@@ -26,4 +26,6 @@ export type NotificationsResponse = {
 export type NotificationContextType = {
   markAsRead: (id: string) => void;
   markAllAsRead: () => void;
+  unreadCount: number;
+  setUnreadCount: (count: number) => void;
 };

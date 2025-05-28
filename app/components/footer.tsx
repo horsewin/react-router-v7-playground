@@ -7,8 +7,11 @@ function ListHeader({ children }: { children: React.ReactNode }) {
 
 function ExternalLinkComponent({
   href,
-  children,
-}: { href: string; children: React.ReactNode }) {
+  children
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <a
       href={href}

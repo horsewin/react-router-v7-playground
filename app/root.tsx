@@ -37,7 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="overscroll-none">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -50,9 +50,13 @@ export default function App() {
   return (
     <NotificationProvider>
       <CartProvider>
-        <Header />
-        <Outlet />
-        <Footer />
+        <div className="min-h-screen flex flex-col overscroll-none">
+          <Header />
+          <main className="flex-1 overscroll-none">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
         <Toaster />
       </CartProvider>
     </NotificationProvider>

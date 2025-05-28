@@ -8,6 +8,7 @@ export function Header({ className }: { className?: string }) {
   const [y, setY] = useState(0);
   const location = useLocation();
   const isHome = location.pathname === "/";
+
   const { unreadCount } = useNotifications();
 
   useEffect(() => {

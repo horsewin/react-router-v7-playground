@@ -32,6 +32,8 @@ interface NotificationProviderProps {
 export function NotificationProvider({ children }: NotificationProviderProps) {
   const fetcher = useFetcher();
 
+  const [unreadCount, setUnreadCount] = useState(0);
+
   const markAsRead = useCallback((id: string) => {
     // TODO: サーバー側の既読状態も更新する必要がある場合はここでAPI呼び出し
     fetcher.submit(
@@ -52,7 +54,9 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
 
   const value: NotificationContextType = {
     markAsRead,
-    markAllAsRead
+    markAllAsRead,
+    setUnreadCount,
+    unreadCount
   };
 
   return (

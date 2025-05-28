@@ -66,7 +66,6 @@ export function ReservationFormModal({
   onClose
 }: ReservationFormModalProps) {
   const { cartId } = useCart();
-  const { addNotification } = useNotifications();
   const fetcher = useFetcher();
   const { toast } = useToast();
 
@@ -136,7 +135,7 @@ export function ReservationFormModal({
         });
       }
     },
-    [cartId, fetcher, pet.id, pet.name, reset, onClose, toast, addNotification]
+    [cartId, fetcher, pet.id, pet.name, reset, onClose, toast]
   );
 
   const handleClose = useCallback(() => {
