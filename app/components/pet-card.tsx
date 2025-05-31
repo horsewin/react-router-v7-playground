@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import { PetDetailsModal } from "~/components/pet-details-modal";
 import { ReservationFormModal } from "~/components/reservation-form";
@@ -10,9 +10,11 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from "~/components/ui/tooltip";
 import { useCart } from "~/contexts/cartProvider";
+import { useToast } from "~/hooks/use-toast";
+import { action } from "~/routes/pets/pet";
 import type { Pet } from "~/types/pet";
 
 interface PetCardProps {
@@ -25,18 +27,39 @@ export function PetCard({ pet }: PetCardProps) {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const formattedPrice = new Intl.NumberFormat("ja-JP").format(pet.price);
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<typeof action>();
+  const { toast } = useToast();
+
+  // fetcher の状態変化を監視してトーストを表示
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data) {
+      if (fetcher.data.status === 200) {
+        toast({
+          title: "「お気に入り」しました",
+          duration: 3000
+        });
+      } else {
+        console.log(fetcher.data);
+        toast({
+          title: "エラーが発生しました",
+          description: "お気に入りに失敗しました",
+          variant: "destructive",
+          duration: 3000
+        });
+      }
+    }
+  }, [fetcher.state, fetcher.data, toast]);
 
   const handleToggle = () => {
     fetcher.submit(
       {
         userId: cartId,
-        like: true,
+        like: true
       },
       {
         method: "post",
-        action: `/pets/${pet.id}`,
-      },
+        action: `/pets/${pet.id}`
+      }
     );
   };
 
@@ -88,7 +111,7 @@ export function PetCard({ pet }: PetCardProps) {
               </div>
 
               <div className="flex flex-wrap gap-2 ">
-                {pet.tags.map((tag) => (
+                {pet.tags.map(tag => (
                   <Badge
                     key={tag}
                     variant="secondary"

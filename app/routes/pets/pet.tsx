@@ -1,12 +1,5 @@
-import { useFetcher } from "react-router";
-import { Button } from "~/components/ui/button";
-import type { Route } from "../../../.react-router/types/app/routes/pets/+types/pet";
 import { config } from "~/lib/config";
-
-export async function loader({ params }: Route.LoaderArgs) {
-  const { id } = params;
-  return { id: id };
-}
+import type { Route } from "../../../.react-router/types/app/routes/pets/+types/pet";
 
 export async function action({ params, request }: Route.ActionArgs) {
   const { id } = params;
@@ -44,35 +37,12 @@ export async function action({ params, request }: Route.ActionArgs) {
       };
     }
 
-    return await response.json();
+    return {
+      status: 200,
+      body: await response.json()
+    };
   } catch (error) {
     console.error("Error updating like status:", error);
     return { body: "Failed to update like status", status: 500 };
   }
-}
-
-export default function PetPage({ loaderData }: Route.ComponentProps) {
-  const fetcher = useFetcher();
-
-  const handleToggle = () => {
-    fetcher.submit(
-      {
-        userId: "5",
-        like: true
-      },
-      {
-        method: "post",
-        action: "/pet/3"
-      }
-    );
-  };
-
-  return (
-    <div>
-      <p>{loaderData.id}</p>
-      <Button type={"button"} onClick={handleToggle}>
-        Like
-      </Button>
-    </div>
-  );
 }

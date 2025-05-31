@@ -241,13 +241,37 @@ export async function loader() {
     if (response.ok) {
       // snake_case から camelCase に変換
       const camelCaseResponse = convertKeysToCamelCase<Pet[]>(data.data);
+      
+      // ID順でソートして一貫した順序を保つ
+      const sortedPets = camelCaseResponse.sort((a, b) => {
+        // 数値IDと文字列IDの混在に対応
+        const aId = isNaN(Number(a.id)) ? a.id : Number(a.id);
+        const bId = isNaN(Number(b.id)) ? b.id : Number(b.id);
+        
+        if (typeof aId === 'number' && typeof bId === 'number') {
+          return aId - bId;
+        }
+        return String(aId).localeCompare(String(bId));
+      });
 
-      return { pets: camelCaseResponse };
+      return { pets: sortedPets };
     }
   } catch (error) {
     console.warn(error);
     console.warn("fallback to sample data");
-    return { pets: SAMPLE_PETS };
+    
+    // サンプルデータもID順でソート
+    const sortedSamplePets = [...SAMPLE_PETS].sort((a, b) => {
+      const aId = isNaN(Number(a.id)) ? a.id : Number(a.id);
+      const bId = isNaN(Number(b.id)) ? b.id : Number(b.id);
+      
+      if (typeof aId === 'number' && typeof bId === 'number') {
+        return aId - bId;
+      }
+      return String(aId).localeCompare(String(bId));
+    });
+    
+    return { pets: sortedSamplePets };
   }
 }
 
