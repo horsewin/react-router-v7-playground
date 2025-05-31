@@ -1,3 +1,5 @@
+import { action } from "~/routes/notifications";
+
 // クライアント側で使用する通知型
 export type Notification = {
   id: string;
@@ -24,8 +26,8 @@ export type NotificationsResponse = {
 };
 
 export type NotificationContextType = {
-  markAsRead: (id: string) => void;
-  markAllAsRead: () => void;
   unreadCount: number;
   setUnreadCount: (count: number) => void;
 };
+
+export type NotificationActionType = Awaited<ReturnType<typeof action>>;

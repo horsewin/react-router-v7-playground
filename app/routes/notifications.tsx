@@ -11,7 +11,6 @@ import { ja } from "date-fns/locale";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
-import { useNotifications } from "~/contexts/notificationProvider";
 import type { Notification, NotificationsResponse } from "~/types/notification";
 import type { Route } from "./+types/notifications";
 import { config } from "~/lib/config";
@@ -19,6 +18,54 @@ import {
   convertServerNotificationsToClient,
   SAMPLE_NOTIFICATIONS
 } from "~/lib/notifications";
+import { useToast } from "~/hooks/use-toast";
+import { useEffect } from "react";
+import { useFetcher } from "react-router";
+
+// アクション関数: 通知を既読にする
+export async function action({ request }: Route.ActionArgs): Promise<{
+  status: number;
+  body: string;
+  data?: unknown;
+}> {
+  const formData = await request.formData();
+  const body = Object.fromEntries(formData);
+  const { id } = body;
+
+  try {
+    const url = `${config.api.schema}${config.api.backendUrl}/v1/notifications/read`;
+
+    // POSTボディの準備
+    const postBody: { id?: string } = {};
+    if (id) {
+      postBody.id = id as string;
+    }
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(postBody)
+    });
+
+    if (!response.ok) {
+      return {
+        body: "Failed to mark notifications as read",
+        status: 500
+      };
+    }
+
+    const result = await response.json();
+    return {
+      ...result,
+      status: 200
+    };
+  } catch (error) {
+    console.error("Error marking notifications as read:", error);
+    return { body: "Failed to mark notifications as read", status: 500 };
+  }
+}
 
 // サーバーから通知データを取得
 export async function loader() {
@@ -53,7 +100,7 @@ function NotificationListItem({
 }: {
   notification: Notification;
 }) {
-  const { markAsRead } = useNotifications();
+  const fetcher = useFetcher<typeof action>();
 
   const getIcon = () => {
     switch (notification.type) {
@@ -85,7 +132,7 @@ function NotificationListItem({
 
   const handleClick = () => {
     if (!notification.isRead) {
-      markAsRead(notification.id);
+      fetcher.submit({ id: notification.id }, { method: "post" });
     }
   };
 
@@ -148,8 +195,28 @@ export default function NotificationsPage({
   const serverNotifications = loaderData?.notifications || [];
   const total = loaderData?.total || 0;
 
-  // クライアント側の通知管理機能も使用
-  const { markAllAsRead } = useNotifications();
+  const fetcher = useFetcher<typeof action>();
+  const { toast } = useToast();
+
+  // fetcher の状態変化を監視してトーストを表示
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data) {
+      if (fetcher.data.status === 200) {
+        toast({
+          title: "通知を既読にしました",
+          description: "すべての通知が既読状態になりました",
+          duration: 3000
+        });
+      } else {
+        toast({
+          title: "エラーが発生しました",
+          description: "通知の既読処理に失敗しました",
+          variant: "destructive",
+          duration: 3000
+        });
+      }
+    }
+  }, [fetcher.state, fetcher.data, toast]);
 
   const notifications = serverNotifications;
   const unreadCount = notifications.filter(
@@ -178,7 +245,9 @@ export default function NotificationsPage({
             {hasUnread && (
               <Button
                 variant="outline"
-                onClick={markAllAsRead}
+                onClick={() => {
+                  fetcher.submit({}, { method: "post" });
+                }}
                 className="flex items-center gap-2"
               >
                 <CheckCircle className="h-4 w-4" />
