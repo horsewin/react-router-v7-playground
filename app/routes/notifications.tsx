@@ -1,26 +1,20 @@
-import {
-  Bell,
-  CheckCircle,
-  Info,
-  AlertTriangle,
-  XCircle,
-  X
-} from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { AlertTriangle, Bell, CheckCircle, Info, XCircle } from "lucide-react";
+import { useEffect } from "react";
+import { useFetcher } from "react-router";
 import { Badge } from "~/components/ui/badge";
-import type { Notification, NotificationsResponse } from "~/types/notification";
-import type { Route } from "./+types/notifications";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { useNotifications } from "~/contexts/notificationProvider";
+import { useToast } from "~/hooks/use-toast";
 import { config } from "~/lib/config";
 import {
   convertServerNotificationsToClient,
   SAMPLE_NOTIFICATIONS
 } from "~/lib/notifications";
-import { useToast } from "~/hooks/use-toast";
-import { useEffect } from "react";
-import { useFetcher } from "react-router";
+import type { Notification, NotificationsResponse } from "~/types/notification";
+import type { Route } from "./+types/notifications";
 
 // アクション関数: 通知を既読にする
 export async function action({ request }: Route.ActionArgs): Promise<{
@@ -37,8 +31,8 @@ export async function action({ request }: Route.ActionArgs): Promise<{
 
     // POSTボディの準備
     const postBody: { id?: string } = {};
-    if (id) {
-      postBody.id = id as string;
+    if (id && typeof id === "string") {
+      postBody.id = id;
     }
 
     const response = await fetch(url, {
@@ -130,7 +124,8 @@ function NotificationListItem({
     }
   };
 
-  const handleClick = () => {
+  const handleMarkAsRead = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!notification.isRead) {
       fetcher.submit({ id: notification.id }, { method: "post" });
     }
@@ -144,14 +139,13 @@ function NotificationListItem({
   return (
     <Card
       className={`
-        cursor-pointer transition-all hover:shadow-md
+        transition-all hover:shadow-md
         ${
           !notification.isRead
             ? "border-l-4 border-l-blue-400 bg-blue-50/50"
             : ""
         }
       `}
-      onClick={handleClick}
     >
       <CardContent className="p-6">
         <div className="flex items-start justify-between gap-4">
@@ -182,6 +176,19 @@ function NotificationListItem({
               </div>
             </div>
           </div>
+          {!notification.isRead && (
+            <div className="flex-shrink-0 self-center">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleMarkAsRead}
+                className="h-10 w-10 p-0 hover:bg-blue-100"
+                title="既読にする"
+              >
+                <CheckCircle className="h-6 w-6 text-blue-600" />
+              </Button>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -196,6 +203,7 @@ export default function NotificationsPage({
   const total = loaderData?.total || 0;
 
   const fetcher = useFetcher<typeof action>();
+  const { unreadCount, setUnreadCount } = useNotifications();
   const { toast } = useToast();
 
   // fetcher の状態変化を監視してトーストを表示
@@ -218,11 +226,14 @@ export default function NotificationsPage({
     }
   }, [fetcher.state, fetcher.data, toast]);
 
-  const notifications = serverNotifications;
-  const unreadCount = notifications.filter(
-    (n: Notification) => !n.isRead
-  ).length;
-  const hasNotifications = notifications.length > 0;
+  useEffect(() => {
+    // サーバから取得した通知数を更新
+    setUnreadCount(
+      serverNotifications.filter((n: Notification) => !n.isRead).length
+    );
+  }, [serverNotifications]);
+
+  const hasNotifications = serverNotifications.length > 0;
   const hasUnread = unreadCount > 0;
 
   return (
@@ -280,7 +291,7 @@ export default function NotificationsPage({
                   未読の通知 ({unreadCount}件)
                 </h2>
                 <div className="space-y-3">
-                  {notifications
+                  {serverNotifications
                     .filter((n: Notification) => !n.isRead)
                     .map((notification: Notification) => (
                       <NotificationListItem
@@ -292,13 +303,13 @@ export default function NotificationsPage({
               </div>
             )}
 
-            {notifications.some((n: Notification) => n.isRead) && (
+            {serverNotifications.some((n: Notification) => n.isRead) && (
               <div>
                 <h2 className="text-lg font-semibold text-gray-800 mb-3">
                   既読の通知
                 </h2>
                 <div className="space-y-3">
-                  {notifications
+                  {serverNotifications
                     .filter((n: Notification) => n.isRead)
                     .map((notification: Notification) => (
                       <NotificationListItem
