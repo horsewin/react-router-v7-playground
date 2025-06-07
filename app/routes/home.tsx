@@ -23,42 +23,35 @@ export function meta() {
 }
 
 export async function loader() {
-  let dataBackendUrl = null;
-  let dataServiceConnect = null;
+  let dataBackendUrl = {
+    data: { message: "Hello, API response cannot be used" }
+  };
+  let dataServiceConnect = {
+    data: { message: "Hello, API response cannot be used for service connect" }
+  };
+
+  // Backend URL fetch with proper error handling
   try {
     const responseBackendUrl = await fetch(
       `${config.api.schema}${config.api.backendUrl}/v1/helloworld`
-    ).catch(error => {
-      console.error("Error fetching data:", error);
-      dataBackendUrl = {
-        data: { message: "Hello, API response cannot be used" }
-      };
-    });
-    const responseServiceConnect = await fetch(
-      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
-    ).catch(error => {
-      console.error("Error fetching data for service connect:", error);
-      dataServiceConnect = {
-        data: {
-          message: "Hello, API response cannot be used for service connect"
-        }
-      };
-    });
-
-    if (responseBackendUrl instanceof Response && !dataBackendUrl) {
+    );
+    if (responseBackendUrl.ok) {
       dataBackendUrl = await responseBackendUrl.json();
     }
-    if (responseServiceConnect instanceof Response && !dataServiceConnect) {
+  } catch (error) {
+    console.error("Error fetching data from backend:", error);
+  }
+
+  // Service Connect URL fetch with proper error handling
+  try {
+    const responseServiceConnect = await fetch(
+      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
+    );
+    if (responseServiceConnect.ok) {
       dataServiceConnect = await responseServiceConnect.json();
     }
   } catch (error) {
-    console.error("some error occurred", error);
-    return {
-      message:
-        dataBackendUrl?.data.message ?? "Hello, API response cannot be used",
-      messageServiceConnect:
-        dataServiceConnect?.data.message ?? "Hello, API response cannot be used"
-    };
+    console.error("Error fetching data for service connect:", error);
   }
 
   return {

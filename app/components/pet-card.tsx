@@ -78,7 +78,7 @@ export function PetCard({ pet }: PetCardProps) {
               <Button
                 variant="secondary"
                 size="sm"
-                className="bg-white/80 backdrop-blur-sm"
+                className="bg-white/80 backdrop-blur-sm min-w-[60px] h-8"
                 onClick={handleToggle}
                 disabled={fetcher.state === "submitting"}
               >
@@ -128,7 +128,7 @@ export function PetCard({ pet }: PetCardProps) {
               variant="outline"
               size="sm"
               onClick={() => setIsDetailsModalOpen(true)}
-              className="w-full lg:w-auto"
+              className="w-full lg:min-w-[100px] lg:flex-1 h-8"
             >
               詳細を見る
             </Button>
@@ -137,7 +137,7 @@ export function PetCard({ pet }: PetCardProps) {
                 <Button
                   size="sm"
                   onClick={() => setIsReservationModalOpen(true)}
-                  className="w-full lg:w-auto"
+                  className="w-full lg:min-w-[100px] lg:flex-1 h-8"
                 >
                   見学予約
                 </Button>
