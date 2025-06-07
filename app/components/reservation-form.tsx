@@ -11,7 +11,7 @@ import {
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useCart } from "~/contexts/cartProvider";
+import { useUser } from "~/contexts/userProvider";
 import { useNotifications } from "~/contexts/notificationProvider";
 import type { Pet } from "~/types/pet";
 import {
@@ -65,7 +65,7 @@ export function ReservationFormModal({
   isOpen,
   onClose
 }: ReservationFormModalProps) {
-  const { cartId } = useCart();
+  const { userId } = useUser();
   const fetcher = useFetcher();
   const { toast } = useToast();
 
@@ -108,7 +108,7 @@ export function ReservationFormModal({
   const onSubmit = useCallback(
     async (data: ReservationFormData) => {
       try {
-        const submissionData = transformToSubmissionData(data, cartId);
+        const submissionData = transformToSubmissionData(data, userId);
 
         await fetcher.submit(submissionData, {
           method: "post",
@@ -135,7 +135,7 @@ export function ReservationFormModal({
         });
       }
     },
-    [cartId, fetcher, pet.id, pet.name, reset, onClose, toast]
+    [userId, fetcher, pet.id, pet.name, reset, onClose, toast]
   );
 
   const handleClose = useCallback(() => {

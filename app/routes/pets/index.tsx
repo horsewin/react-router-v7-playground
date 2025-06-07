@@ -1,3 +1,4 @@
+import { ActionFunctionArgs } from "react-router";
 import { PetCard } from "~/components/pet-card";
 import { convertKeysToCamelCase } from "~/lib/utils";
 import type { Pet } from "~/types/pet";

@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "~/components/ui/tooltip";
-import { useCart } from "~/contexts/cartProvider";
+import { useUser } from "~/contexts/userProvider";
 import { useToast } from "~/hooks/use-toast";
 import { action } from "~/routes/pets/pet";
 import type { Pet } from "~/types/pet";
@@ -22,7 +22,7 @@ interface PetCardProps {
 }
 
 export function PetCard({ pet }: PetCardProps) {
-  const { cartId } = useCart();
+  const { userId } = useUser();
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
@@ -53,7 +53,7 @@ export function PetCard({ pet }: PetCardProps) {
   const handleToggle = () => {
     fetcher.submit(
       {
-        userId: cartId,
+        userId: userId,
         like: true
       },
       {

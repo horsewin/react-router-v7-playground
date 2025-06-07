@@ -7,13 +7,13 @@ import {
   isRouteErrorResponse
 } from "react-router";
 
-import type { Route } from "./+types/root";
-import "./app.css";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
-import { CartProvider } from "~/contexts/cartProvider";
+import { UserProvider } from "~/contexts/userProvider";
 import { NotificationProvider } from "~/contexts/notificationProvider";
 import { Toaster } from "~/components/ui/toaster";
+import type { Route } from "./+types/root";
+import "./app.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,7 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <NotificationProvider>
-      <CartProvider>
+      <UserProvider>
         <div className="min-h-screen flex flex-col overscroll-none">
           <Header />
           <main className="flex-1 overscroll-none">
@@ -58,7 +58,7 @@ export default function App() {
           <Footer />
         </div>
         <Toaster />
-      </CartProvider>
+      </UserProvider>
     </NotificationProvider>
   );
 }
