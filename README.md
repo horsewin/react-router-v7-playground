@@ -1,121 +1,121 @@
-# React Router v7 Pet Shop Demo
+# React Router v7 ペットショップデモ
 
-A modern pet shop application built with React Router v7, showcasing server-side rendering, data loading patterns, and full-stack React capabilities.
+React Router v7で構築されたモダンなペットショップアプリケーション。サーバーサイドレンダリング、データローディングパターン、フルスタックReactの機能を実演しています。
 
-## 🚀 Features
+## 🚀 機能
 
-- **Pet Catalog**: Browse available pets with detailed information cards
-- **Shopping Cart**: Global cart management with localStorage persistence  
-- **Interactive UI**: Modal dialogs, real-time updates, and responsive design
-- **Server-Side Rendering**: Full SSR support for SEO and performance
-- **Type Safety**: Complete TypeScript integration with route type generation
-- **Modern Stack**: React 18, Tailwind CSS, Radix UI components
+- **ペットカタログ**: 詳細情報カード付きのペット閲覧機能
+- **ショッピングカート**: localStorage永続化によるグローバルカート管理
+- **インタラクティブUI**: モーダルダイアログ、リアルタイム更新、レスポンシブデザイン
+- **サーバーサイドレンダリング**: SEOとパフォーマンス向上のための完全SSR対応
+- **型安全性**: ルート型生成による完全なTypeScript統合
+- **モダンスタック**: React 18、Tailwind CSS、Radix UIコンポーネント
 
-## 📋 Requirements
+## 📋 要件
 
 - Node.js >= 22.12.0
-- pnpm 9.15.0 (automatically enforced)
+- pnpm 9.15.0（自動で強制される）
 
-## 🛠️ Installation
+## 🛠️ インストール
 
 ```bash
-# Clone the repository
+# リポジトリをクローン
 git clone https://github.com/horsewin/react-router-v7-playground.git
 cd react-router-v7-playground
 
-# Install dependencies (uses pnpm)
+# 依存関係をインストール（pnpmを使用）
 pnpm install
 ```
 
-## 🚦 Development
+## 🚦 開発
 
 ```bash
-# Start development server
+# 開発サーバーを起動
 pnpm dev
 
-# Type checking
+# 型チェック
 pnpm typecheck
 
-# Generate route types
+# ルート型を生成
 pnpm typegen
 
-# Linting and formatting
+# リンティングとフォーマット
 pnpm check
 pnpm fix
 ```
 
-## 🏗️ Build & Production
+## 🏗️ ビルド・本番環境
 
 ```bash
-# Build for production
+# 本番用ビルド
 pnpm build
 
-# Start production server
+# 本番サーバーを起動
 pnpm start
 ```
 
 ## 🐳 Docker
 
-The project includes Docker support with multi-stage builds:
+マルチステージビルドによるDockerサポートが含まれています：
 
 ```bash
-# Build and run with Docker
+# Dockerでビルド・実行
 docker build -t react-router-pet-shop .
 docker run -p 3000:3000 react-router-pet-shop
 
-# Using docker-compose (if available)
+# docker-composeを使用する場合（利用可能な場合）
 docker-compose up
 ```
 
-## 🗂️ Project Structure
+## 🗂️ プロジェクト構造
 
 ```
 app/
-├── components/        # Reusable UI components
-│   ├── ui/           # Base UI components (shadcn/ui)
-│   └── *.tsx         # Feature components
-├── contexts/         # React Context providers
-├── lib/             # Utility functions
-├── routes/          # Route components
-├── types/           # TypeScript type definitions
-├── app.css          # Global styles
-├── root.tsx         # Root layout component
-└── routes.ts        # Route configuration
+├── components/        # 再利用可能なUIコンポーネント
+│   ├── ui/           # ベースUIコンポーネント（shadcn/ui）
+│   └── *.tsx         # 機能コンポーネント
+├── contexts/         # React Contextプロバイダー
+├── lib/             # ユーティリティ関数
+├── routes/          # ルートコンポーネント
+├── types/           # TypeScript型定義
+├── app.css          # グローバルスタイル
+├── root.tsx         # ルートレイアウトコンポーネント
+└── routes.ts        # ルート設定
 
-public/              # Static assets
-react-router.config.ts  # React Router configuration
+public/              # 静的アセット
+react-router.config.ts  # React Router設定
 ```
 
-## 🌟 Key Technologies
+## 🌟 主要技術
 
-- **[React Router v7](https://reactrouter.com/)** - Full-stack React framework
-- **[React 18](https://react.dev/)** - UI library
-- **[TypeScript](https://www.typescriptlang.org/)** - Type safety
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS
-- **[Radix UI](https://www.radix-ui.com/)** - Headless UI components
-- **[Vite](https://vitejs.dev/)** - Build tool
-- **[Biome](https://biomejs.dev/)** - Linting and formatting
+- **[React Router v7](https://reactrouter.com/)** - フルスタックReactフレームワーク
+- **[React 18](https://react.dev/)** - UIライブラリ
+- **[TypeScript](https://www.typescriptlang.org/)** - 型安全性
+- **[Tailwind CSS](https://tailwindcss.com/)** - ユーティリティファーストCSS
+- **[Radix UI](https://www.radix-ui.com/)** - ヘッドレスUIコンポーネント
+- **[Vite](https://vitejs.dev/)** - ビルドツール
+- **[Biome](https://biomejs.dev/)** - リンティング・フォーマッティング
 
-## 🔧 Configuration
+## 🔧 設定
 
-### Environment Variables
+### 環境変数
 
-- `BACKEND_URL` - Backend API URL (optional, uses mock data if not set)
+- `BACKEND_URL` - バックエンドAPI URL（オプション、設定されていない場合はモックデータを使用）
 
-### React Router Config
+### React Router設定
 
-The application uses React Router v7 with SSR enabled. Configuration can be found in `react-router.config.ts`.
+このアプリケーションはSSRが有効なReact Router v7を使用しています。設定は`react-router.config.ts`で確認できます。
 
-## 📱 Routes
+## 📱 ルート
 
-- `/` - Home page with welcome screen
-- `/pets` - Pet catalog with filtering and search
-- `/healthcheck` - Application health status
+- `/` - ウェルカム画面付きのホームページ
+- `/pets` - フィルタリング・検索機能付きペットカタログ
+- `/healthcheck` - アプリケーションヘルスステータス
 
-## 🤝 Contributing
+## 🤝 コントリビューション
 
-This is a personal playground project for exploring React Router v7 features. Feel free to fork and experiment!
+これはReact Router v7の機能を探索するための個人的なプレイグラウンドプロジェクトです。自由にフォーク・実験してください！
 
-## 📄 License
+## 📄 ライセンス
 
-This project is open source and available for educational purposes.
+このプロジェクトはオープンソースで、教育目的で利用できます。
