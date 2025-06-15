@@ -1,5 +1,6 @@
 import React from "react";
 import type { Route } from "./+types/home";
+import { Link } from "react-router";
 import { config } from "~/lib/config";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
@@ -100,72 +101,44 @@ function HeroSection({
                   className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-orange-100 text-orange-800 border-orange-200"
                 >
                   <PawPrint className="w-4 h-4" />
-                  愛情あふれるペットショップ
+                  アライとウマのお店
                 </Badge>
 
                 <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent leading-tight">
                   あなたの
                   <br />
-                  運命の相棒を
+                  学びのお供たち
                 </h1>
 
+                {/* ここにWelcomeメッセージがはいります！！！ */}
                 <p className="text-lg text-gray-700 max-w-2xl mx-auto lg:mx-0">
-                  愛らしいペットたちがあなたとの出会いを待っています。
-                  <br />
-                  心温まる家族の一員を見つけませんか？
+                  {message}
                 </p>
               </div>
 
-              {/* API Status Cards with pet theme */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto lg:mx-0">
-                <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                      <PawPrint className="w-4 h-4 text-orange-500" />
-                      <span className="font-semibold text-gray-900 text-sm">
-                        ペット管理システム
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-600">{message}</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
-                      <Heart className="w-4 h-4 text-red-500" />
-                      <span className="font-semibold text-gray-900 text-sm">
-                        ケアサービス
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-600">
-                      {messageServiceConnect}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* CTA Buttons with pet theme */}
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <Heart className="w-5 h-5 mr-2" />
-                  ペットを探す
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                <Link to="/pets">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Heart className="w-5 h-5 mr-2" />
+                    ペットを探す
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
 
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-orange-300 text-orange-700 hover:bg-orange-50 transition-all duration-300"
-                >
-                  <PawPrint className="w-5 h-5 mr-2" />
-                  ショップについて
-                </Button>
+                <Link to="/about">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-orange-300 text-orange-700 hover:bg-orange-50 transition-all duration-300"
+                  >
+                    <PawPrint className="w-5 h-5 mr-2" />
+                    ショップについて
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -217,20 +190,20 @@ function HeroSection({
             {[
               {
                 icon: Shield,
-                title: "安心・安全",
-                desc: "健康チェック済みの可愛いペットたち",
+                title: "大リニューアル",
+                desc: "最新の内容に合わせて全体を刷新",
                 color: "text-green-600"
               },
               {
                 icon: Users,
-                title: "専門スタッフ",
-                desc: "経験豊富なスタッフがサポート",
+                title: "きめ細やかなイラスト",
+                desc: "わかりやすいイラストで学びをサポート",
                 color: "text-blue-600"
               },
               {
                 icon: Star,
                 title: "アフターケア",
-                desc: "お迎え後も安心のサポート体制",
+                desc: "購入後も安心のサポート体制",
                 color: "text-yellow-600"
               }
             ].map((feature, index) => (
