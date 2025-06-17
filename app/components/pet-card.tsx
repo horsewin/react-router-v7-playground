@@ -39,7 +39,6 @@ export function PetCard({ pet }: PetCardProps) {
           duration: 3000
         });
       } else {
-        console.log(fetcher.data);
         toast({
           title: "エラーが発生しました",
           description: "お気に入りに失敗しました",
@@ -51,16 +50,37 @@ export function PetCard({ pet }: PetCardProps) {
   }, [fetcher.state, fetcher.data, toast]);
 
   const handleToggle = () => {
-    fetcher.submit(
-      {
-        userId: userId,
-        like: true
-      },
-      {
-        method: "post",
-        action: `/pets/${pet.id}`
+    try {
+      if (!userId) {
+        toast({
+          title: "エラーが発生しました",
+          description:
+            "予期しないエラーが発生しました。もう一度お試しください。",
+          variant: "destructive",
+          duration: 3000
+        });
+        return;
       }
-    );
+
+      fetcher.submit(
+        {
+          userId,
+          like: true
+        },
+        {
+          method: "post",
+          action: `/pets/${pet.id}`
+        }
+      );
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+      toast({
+        title: "エラーが発生しました",
+        description: "予期しないエラーが発生しました。もう一度お試しください。",
+        variant: "destructive",
+        duration: 3000
+      });
+    }
   };
 
   return (

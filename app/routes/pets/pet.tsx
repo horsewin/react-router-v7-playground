@@ -43,6 +43,6 @@ export async function action({ params, request }: Route.ActionArgs) {
     };
   } catch (error) {
     console.error("Error updating like status:", error);
-    return { body: "Failed to update like status", status: 500 };
+    return { body: "Unknown error. Please try again.", status: 500 };
   }
 }
