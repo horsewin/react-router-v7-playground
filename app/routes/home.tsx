@@ -97,15 +97,13 @@ function HeroSection({ message }: { message: string }) {
                   アライとウマのお店
                 </Badge>
 
-                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent leading-tight">
-                  あなたの
-                  <br />
-                  学びのお供たち
+                {/* ここにWelcomeメッセージがはいります！！！ */}
+                <h1 className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent leading-loose">
+                  {message}
                 </h1>
 
-                {/* ここにWelcomeメッセージがはいります！！！ */}
                 <p className="text-lg text-gray-700 max-w-2xl mx-auto lg:mx-0">
-                  {message}
+                  ショップへようこそ！
                 </p>
               </div>
 
