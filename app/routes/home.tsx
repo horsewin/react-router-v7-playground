@@ -56,22 +56,15 @@ export async function loader() {
   }
 
   return {
-    message: dataBackendUrl.data.message,
-    messageServiceConnect: dataServiceConnect.data.message
+    message: dataBackendUrl.data.message
   };
 }
 
-function HeroSection({
-  message,
-  messageServiceConnect
-}: {
-  message: string;
-  messageServiceConnect: string;
-}) {
+function HeroSection({ message }: { message: string }) {
   return (
-    <section className="relative min-h-full w-full flex items-center justify-center overflow-hidden bg-gradient-to-b from-orange-50 via-amber-50 to-orange-50 py-10">
+    <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-orange-50 via-amber-50 to-orange-50 py-10">
       {/* Animated paw prints background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0">
         <div
           className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-orange-300/10 to-amber-300/10 rounded-full blur-2xl animate-bounce"
           style={{ animationDelay: "0s", animationDuration: "3s" }}
@@ -233,12 +226,7 @@ function HeroSection({
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { message, messageServiceConnect } = loaderData;
+  const { message } = loaderData;
 
-  return (
-    <HeroSection
-      message={message}
-      messageServiceConnect={messageServiceConnect}
-    />
-  );
+  return <HeroSection message={message} />;
 }
