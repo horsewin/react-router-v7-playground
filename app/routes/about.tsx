@@ -1,4 +1,3 @@
-import { Welcome } from "~/welcome/welcome";
 import type { Route } from "./+types/home";
 import { config } from "~/lib/config";
 
@@ -54,12 +53,11 @@ export async function loader() {
 }
 
 export default function About({ loaderData }: Route.ComponentProps) {
-  const { message, messageServiceConnect } = loaderData;
+  const { message } = loaderData;
   return (
     <div>
       <h1>About</h1>
       <p>{message}</p>
-      <p>{messageServiceConnect}</p>
     </div>
   );
 }
