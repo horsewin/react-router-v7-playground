@@ -34,7 +34,7 @@ export async function loader() {
   // Backend URL fetch with proper error handling
   try {
     const responseBackendUrl = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/helloworld`
+      `${config.api.backendUrl}/v1/helloworld`
     );
     if (responseBackendUrl.ok) {
       dataBackendUrl = await responseBackendUrl.json();
@@ -46,7 +46,7 @@ export async function loader() {
   // Service Connect URL fetch with proper error handling
   try {
     const responseServiceConnect = await fetch(
-      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld`
+      `${config.api.serviceConnectUrl}/v1/helloworld`
     );
     if (responseServiceConnect.ok) {
       dataServiceConnect = await responseServiceConnect.json();

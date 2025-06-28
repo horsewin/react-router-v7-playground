@@ -17,7 +17,7 @@ export async function action({ params, request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/pets/${id}/reservation`,
+      `${config.api.backendUrl}/v1/pets/${id}/reservation`,
       {
         method: "POST",
         headers: {

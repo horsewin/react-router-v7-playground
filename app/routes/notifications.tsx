@@ -27,7 +27,7 @@ export async function action({ request }: Route.ActionArgs): Promise<{
   const { id } = body;
 
   try {
-    const url = `${config.api.schema}${config.api.backendUrl}/v1/notifications/read`;
+    const url = `${config.api.backendUrl}/v1/notifications/read`;
 
     // POSTボディの準備
     const postBody: { id?: string } = {};
@@ -64,9 +64,7 @@ export async function action({ request }: Route.ActionArgs): Promise<{
 // サーバーから通知データを取得
 export async function loader() {
   try {
-    const response = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/notifications`
-    );
+    const response = await fetch(`${config.api.backendUrl}/v1/notifications`);
 
     if (response.ok) {
       const data: NotificationsResponse = await response.json();

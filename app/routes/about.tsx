@@ -14,7 +14,7 @@ export async function loader() {
   let dataServiceConnect = null;
   try {
     const responseBackendUrl = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/helloworld/error`
+      `${config.api.backendUrl}/v1/helloworld/error`
     ).catch(error => {
       console.error("Error fetching data:", error);
       dataBackendUrl = {
@@ -22,7 +22,7 @@ export async function loader() {
       };
     });
     const responseServiceConnect = await fetch(
-      `${config.api.schema}${config.api.serviceConnectUrl}/v1/helloworld/error`
+      `${config.api.serviceConnectUrl}/v1/helloworld/error`
     ).catch(error => {
       console.error("Error fetching data for service connect:", error);
       dataServiceConnect = {

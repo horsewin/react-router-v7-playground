@@ -235,21 +235,19 @@ export const SAMPLE_PETS: Pet[] = [
 
 export async function loader() {
   try {
-    const response = await fetch(
-      `${config.api.schema}${config.api.backendUrl}/v1/pets`
-    );
+    const response = await fetch(`${config.api.backendUrl}/v1/pets`);
     const data = await response.json();
     if (response.ok) {
       // snake_case から camelCase に変換
       const camelCaseResponse = convertKeysToCamelCase<Pet[]>(data.data);
-      
+
       // ID順でソートして一貫した順序を保つ
       const sortedPets = camelCaseResponse.sort((a, b) => {
         // 数値IDと文字列IDの混在に対応
         const aId = isNaN(Number(a.id)) ? a.id : Number(a.id);
         const bId = isNaN(Number(b.id)) ? b.id : Number(b.id);
-        
-        if (typeof aId === 'number' && typeof bId === 'number') {
+
+        if (typeof aId === "number" && typeof bId === "number") {
           return aId - bId;
         }
         return String(aId).localeCompare(String(bId));
@@ -260,18 +258,18 @@ export async function loader() {
   } catch (error) {
     console.warn(error);
     console.warn("fallback to sample data");
-    
+
     // サンプルデータもID順でソート
     const sortedSamplePets = [...SAMPLE_PETS].sort((a, b) => {
       const aId = isNaN(Number(a.id)) ? a.id : Number(a.id);
       const bId = isNaN(Number(b.id)) ? b.id : Number(b.id);
-      
-      if (typeof aId === 'number' && typeof bId === 'number') {
+
+      if (typeof aId === "number" && typeof bId === "number") {
         return aId - bId;
       }
       return String(aId).localeCompare(String(bId));
     });
-    
+
     return { pets: sortedSamplePets };
   }
 }
