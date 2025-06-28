@@ -17,3 +17,5 @@ export const config = {
     }:${process.env.BACKEND_PORT || "8081"}`
   }
 };
+
+console.log(config.api.backendUrl);
