@@ -10,7 +10,7 @@
       "name": "app",
       "environment": [
         {
-          "name": "BACKEND_FQDN",
+          "name": "BACKEND_URL",
           "value": "backend-app.sbcntr.local"
         }
       ],
@@ -35,9 +35,7 @@
   "cpu": "256",
   "memory": "512",
   "networkMode": "awsvpc",
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
+  "requiresCompatibilities": ["FARGATE"],
   "runtimePlatform": {
     "cpuArchitecture": "ARM64"
   }

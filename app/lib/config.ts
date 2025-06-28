@@ -8,7 +8,7 @@ export const config = {
     // スキーマ名
     schema: process.env.BACKEND_SCHEMA || "http://",
     // バックエンドAPIのエンドポイント
-    backendUrl: process.env.BACKEND_FQDN || "localhost:8081",
+    backendUrl: process.env.BACKEND_URL || "localhost:8081",
     // Service Connect経由のバックエンドAPIのエンドポイント
     serviceConnectUrl:
       process.env.BACKEND_SERVICE_CONNECT_FQDN || "localhost:8081"
