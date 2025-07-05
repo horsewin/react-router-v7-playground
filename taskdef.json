@@ -1,8 +1,8 @@
 {
-  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/SbcntrECSTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "cpu": 256,
+      "cpu": 0,
       "memoryReservation": 512,
       "image": "<IMAGE1_NAME>",
       "readonlyRootFilesystem": true,
@@ -10,7 +10,11 @@
       "name": "app",
       "environment": [
         {
-          "name": "BACKEND_URL",
+          "name": "BACKEND_PORT",
+          "value": "8081"
+        },
+        {
+          "name": "BACKEND_FQDN",
           "value": "backend-app.sbcntr.local"
         }
       ],
@@ -38,5 +42,11 @@
   "requiresCompatibilities": ["FARGATE"],
   "runtimePlatform": {
     "cpuArchitecture": "ARM64"
-  }
+  },
+  "tags": [
+    {
+      "key": "Project",
+      "value": "AWS Container Architecture Design and Build"
+    }
+  ]
 }

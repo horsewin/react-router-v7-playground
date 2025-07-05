@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
@@ -121,7 +122,7 @@ export function PetCard({ pet }: PetCardProps) {
               <p className="text-xs text-gray-600">
                 {pet.shop.name}（{pet.shop.location}）
               </p>
-              <p className="text-xs text-gray-600">{pet.birthDate}生まれ</p>
+              <p className="text-xs text-gray-600">{format(new Date(pet.birthDate), "yyyy/M/d")}生まれ</p>
             </div>
 
             <div className="space-y-2">

@@ -21,7 +21,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000001",
     // features + flag("new") を合わせて tags に入れる例
     tags: ["cute", "famous", "cool", "new"]
@@ -41,7 +41,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000002",
     tags: ["cute", "famous", "cool", "on-sale"]
   },
@@ -60,7 +60,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000003",
     tags: ["cute", "famous", "cool"]
   },
@@ -79,7 +79,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000004",
     tags: ["cute", "famous", "cool"]
   },
@@ -98,7 +98,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000005",
     // featuresをそのまま
     tags: ["くりくりの目", "きれいな毛並み", "おてんば"]
@@ -119,7 +119,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000006",
     tags: ["cute", "famous", "cool"]
   },
@@ -137,7 +137,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000007",
     tags: ["cute", "famous", "cool"]
   },
@@ -155,7 +155,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000008",
     tags: ["cute", "famous", "cool"]
   },
@@ -173,7 +173,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000009",
     tags: ["cute", "famous", "cool"]
   },
@@ -191,7 +191,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000010",
     tags: ["cute", "famous", "cool"]
   },
@@ -209,7 +209,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000011",
     tags: ["cute", "famous", "cool"]
   },
@@ -227,7 +227,7 @@ export const SAMPLE_PETS: Pet[] = [
       name: "uma-arai shop 2nd",
       location: "Kanagawa"
     },
-    birthDate: "10月14日",
+    birthDate: "2023-10-14",
     referenceNumber: "0000012",
     tags: ["cute", "famous", "cool"]
   }
