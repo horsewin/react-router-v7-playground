@@ -1,8 +1,8 @@
 # React Router v7 ペットショップデモ
 
-React Router v7で構築されたモダンなペットショップアプリケーション。サーバーサイドレンダリング、データローディングパターン、フルスタックReactの機能を実演しています。
+React Router v7で構築されたモダンなペットショップアプリケーションです。。
 
-## 🚀 機能
+## 機能
 
 - **ペットカタログ**: 詳細情報カード付きのペット閲覧機能
 - **ショッピングカート**: localStorage永続化によるグローバルカート管理
@@ -11,12 +11,12 @@ React Router v7で構築されたモダンなペットショップアプリケ�
 - **型安全性**: ルート型生成による完全なTypeScript統合
 - **モダンスタック**: React 18、Tailwind CSS、Radix UIコンポーネント
 
-## 📋 要件
+## 要件
 
 - Node.js >= 22.12.0
 - pnpm 9.15.0（自動で強制される）
 
-## 🛠️ インストール
+## インストール
 
 ```bash
 # リポジトリをクローン
@@ -27,7 +27,7 @@ cd react-router-v7-playground
 pnpm install
 ```
 
-## 🚦 開発
+## 開発
 
 ```bash
 # 開発サーバーを起動
@@ -44,7 +44,7 @@ pnpm check
 pnpm fix
 ```
 
-## 🏗️ ビルド・本番環境
+## ビルド・本番環境
 
 ```bash
 # 本番用ビルド
@@ -54,7 +54,7 @@ pnpm build
 pnpm start
 ```
 
-## 🐳 Docker
+## Docker
 
 マルチステージビルドによるDockerサポートが含まれています：
 
@@ -67,7 +67,7 @@ docker run -p 3000:3000 react-router-pet-shop
 docker-compose up
 ```
 
-## 🗂️ プロジェクト構造
+## プロジェクト構造
 
 ```
 app/
@@ -86,7 +86,7 @@ public/              # 静的アセット
 react-router.config.ts  # React Router設定
 ```
 
-## 🌟 主要技術
+## 主要技術
 
 - **[React Router v7](https://reactrouter.com/)** - フルスタックReactフレームワーク
 - **[React 18](https://react.dev/)** - UIライブラリ
@@ -96,7 +96,7 @@ react-router.config.ts  # React Router設定
 - **[Vite](https://vitejs.dev/)** - ビルドツール
 - **[Biome](https://biomejs.dev/)** - リンティング・フォーマッティング
 
-## 🔧 設定
+## 設定
 
 ### 環境変数
 
@@ -106,16 +106,12 @@ react-router.config.ts  # React Router設定
 
 このアプリケーションはSSRが有効なReact Router v7を使用しています。設定は`react-router.config.ts`で確認できます。
 
-## 📱 ルート
+## ルート
 
 - `/` - ウェルカム画面付きのホームページ
 - `/pets` - フィルタリング・検索機能付きペットカタログ
 - `/healthcheck` - アプリケーションヘルスステータス
 
-## 🤝 コントリビューション
+## ライセンス
 
-これはReact Router v7の機能を探索するための個人的なプレイグラウンドプロジェクトです。自由にフォーク・実験してください！
-
-## 📄 ライセンス
-
-このプロジェクトはオープンソースで、教育目的で利用できます。
+MIT
