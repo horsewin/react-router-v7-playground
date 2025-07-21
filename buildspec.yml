@@ -35,7 +35,7 @@ phases:
       - aws ecr get-login-password | docker login --username AWS --password-stdin "https://${ECR_REPOS_DOMAIN}"
       - echo Docker Image ${APP_NAME} pushing to ECR on `date`
       - docker push ${ECR_REPOS_URI}:${IMAGE_TAG}
-      - echo '[{"name":"app'","imageUri":"'$ECR_REPOS_URI':'$IMAGE_TAG'"}]'  > imagedefinitions.json
+      - echo '[{"name":"app","imageUri":"'$ECR_REPOS_URI':'$IMAGE_TAG'"}]'  > imagedefinitions.json
 
 artifacts:
   files:
