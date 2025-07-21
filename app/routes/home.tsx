@@ -188,7 +188,7 @@ function HeroSection({ message }: { message: string }) {
               {
                 icon: Users,
                 title: "きめ細やかなイラスト",
-                desc: "わかりやすいイラストで学びをサポート",
+                desc: "わかりやすいイラストで学びをサポート！",
                 color: "text-blue-600"
               },
               {
